@@ -1,0 +1,22 @@
+{
+  "name": "ernie",
+  "version": "1.0.0",
+  "description": "An event based logger with excellent test support",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "deep-extend": "^0.4.1",
+    "lodash.defaultsdeep": "^4.3.2",
+    "ramda": "^0.21.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0"
+  },
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "author": "GuideSmiths",
+  "license": "ISC"
+}
