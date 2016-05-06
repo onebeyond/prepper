@@ -7,22 +7,34 @@ describe('Ernie', function() {
     var repo = new Repo()
     var logger = new Logger()
 
-    before(function() {
-        logger.connect(repo)
+    beforeEach(function() {
+        logger.on('message', repo.store)
     })
 
     afterEach(function() {
         repo.clear()
+        logger.removeAllListeners()
     })
 
     it('should report usage errors safely', function() {
-        logger.log(undefined)
+        logger.log(null)
+        logger.log(null, null)
+        logger.log(null, null, null)
+        logger.log(null, null, null, null)
+        logger.log(1)
+        logger.log(1, 1)
+        logger.log(1, 1, 1)
+        logger.log('', 1)
+        logger.log(new Error(), 1)
+        logger.log({}, '')
+        logger.log('', {}, new Error())
+        logger.log('', new Error(), {}, {})
 
         var events = repo.list()
-        assert.equal(events.length, 1)
+        assert.equal(events.length, 12)
         assert.equal(events[0].level, 'error')
-        assert.equal(events[0].message, 'Invalid call to log')
-        assert.deepEqual(events[0].arguments, [undefined])
+        assert.equal(events[0].message, 'Logger usage error')
+        assert.deepEqual(events[0].arguments, [null])
     })
 
     it('should log an empty event', function() {
@@ -76,12 +88,10 @@ describe('Ernie', function() {
     it('should log errors with custom properties', function() {
         var err = new Error('Oh Noes')
         err.code = 1000
-        err.level = 'warn'
         logger.log(err)
 
         var events = repo.list()
         assert.equal(events.length, 1)
-        assert.equal(events[0].level, 'warn')
         assert.equal(events[0].code, 1000)
         assert.equal(events[0].message, 'Oh Noes')
         assert.match(events[0].stack, /Error: Oh Noes\n    at Context.<anonymous>/)
@@ -129,8 +139,17 @@ describe('Ernie', function() {
         assert.equal(events[0].message, 'Oh Noes')
     })
 
+    it('should prefer explicit error level to implicit error level', function() {
+        var err = new Error('Oh Noes')
+        err.level = 'warn'
+        logger.log(err)
 
-    it('should log strings, errors and complex objects at info by default', function() {
+        var events = repo.list()
+        assert.equal(events.length, 1)
+        assert.equal(events[0].level, 'warn')
+    })
+
+    it('should log strings, errors and complex objects at error by default', function() {
         logger.log('meh', new Error('Oh Noes'), { user: { id: 123 }})
 
         var events = repo.list()
@@ -139,6 +158,20 @@ describe('Ernie', function() {
         assert.equal(events[0].message, 'meh')
         assert.match(events[0].stack, /Error: Oh Noes\n    at Context.<anonymous>/)
         assert.equal(events[0].user.id, 123)
+    })
+
+    it('should use a default error message when none is supplied', function() {
+        logger.log('', new Error(), {})
+        logger.log('', new Error(''), {})
+        logger.log('', new Error(null), {})
+        logger.log('', new Error(undefined), {})
+
+        var events = repo.list()
+        assert.equal(events.length, 4)
+        assert.equal(events[0].message, 'An unspecified error occurred')
+        assert.equal(events[1].message, 'An unspecified error occurred')
+        assert.equal(events[2].message, 'An unspecified error occurred')
+        assert.equal(events[3].message, 'An unspecified error occurred')
     })
 
     it('should support common log levels', function() {
@@ -161,5 +194,102 @@ describe('Ernie', function() {
     it('should prefer method levels to object levels', function() {
         logger.trace({ message: 'meh', level: 'error' })
         assert.equal(repo.findBy('level', 'trace').length, 1)
+    })
+
+    it('should prefer method levels to explicit error levels', function() {
+        var err = new Error('Oh Noes')
+        err.level = 'warn'
+
+        logger.trace(err)
+        assert.equal(repo.findBy('level', 'trace').length, 1)
+    })
+
+    it('should support more than 10 max listeners', function() {
+        var logger = new Logger()
+        for (var i = 0; i < 100; i++) logger.on('message', function() {})
+    })
+
+    it('should support allow max listeners to be specified', function() {
+        var logger = new Logger({ maxListeners: 200 })
+        for (var i = 0; i < 200; i++) logger.on('message', function() {})
+    })
+
+    it('should route events emitted by child loggers to parents existing listeners', function() {
+        logger.child().log('meh')
+
+        var events = repo.list()
+        assert.equal(events.length, 1)
+        assert.equal(events[0].level, 'info')
+        assert.equal(events[0].message, 'meh')
+    })
+
+    it('should route events emitted by child loggers to parents new listeners', function() {
+        var logger = new Logger()
+        var child = logger.child()
+        var repo = new Repo()
+        logger.on('message', repo.store)
+
+        child.log('meh')
+
+        var events = repo.list()
+        assert.equal(events.length, 1)
+        assert.equal(events[0].level, 'info')
+        assert.equal(events[0].message, 'meh')
+    })
+
+    it('should route events emitted by child loggers to childs listeners', function() {
+        var child = new Logger().child()
+        var repo = new Repo()
+        child.on('message', repo.store)
+
+        child.log('meh')
+
+        assert.equal(repo.count(), 1)
+    })
+
+    it('should not route events emitted by parents loggers to childs listeners', function() {
+        var logger = new Logger()
+        var child = logger.child()
+        var repo = new Repo()
+        child.on('message', repo.store)
+
+        logger.log('meh')
+
+        assert.ok(repo.isEmpty())
+    })
+
+    it('should allow child loggers to override library defaults', function() {
+        logger.child({ level: 'trace' }).log('meh')
+
+        var events = repo.list()
+        assert.equal(events.length, 1)
+        assert.equal(events[0].level, 'trace')
+        assert.equal(events[0].message, 'meh')
+    })
+
+    it('should allow child loggers to override parental defaults', function() {
+        var logger = new Logger({ level: 'debug' })
+        var repo = new Repo()
+        logger.on('message', repo.store)
+        logger.child({ level: 'trace' }).log('meh')
+
+        var events = repo.list()
+        assert.equal(events.length, 1)
+        assert.equal(events[0].level, 'trace')
+        assert.equal(events[0].message, 'meh')
+    })
+
+    it('should remove listeners from child loggers when they are removed from their parent', function() {
+        var logger = new Logger({ name: 'Parent' })
+        var repo = new Repo()
+        logger.on('message', repo.store)
+
+        var child = logger.child({ name: 'Child' })
+        child.log('meh')
+        assert.equal(repo.count(), 1)
+
+        logger.removeAllListeners()
+        child.log('meh')
+        assert.equal(repo.count(), 1)
     })
 })
