@@ -30,9 +30,7 @@ describe('Key Filter', function() {
     }
 
     it('should exclude keys matching specified regular expressions', function() {
-        var keyFilter = new KeyFilter({ exclude: [/password/i, /secret/i] })
-
-        wireUp(keyFilter)
+        wireUp(new KeyFilter({ exclude: [/password/i, /secret/i] }))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -44,9 +42,7 @@ describe('Key Filter', function() {
     })
 
     it('should exclude keys matching specified strings', function() {
-        var keyFilter = new KeyFilter({ exclude: ['password', 'secret'] })
-
-        wireUp(keyFilter)
+        wireUp(new KeyFilter({ exclude: ['password', 'secret'] }))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -58,11 +54,9 @@ describe('Key Filter', function() {
     })
 
     it('should exclude keys matching function', function() {
-        var keyFilter = new KeyFilter({ exclude: [function(key) {
+        wireUp(new KeyFilter({ exclude: [function(key) {
             return (key === 'password' || key === 'secret')
-        }] })
-
-        wireUp(keyFilter)
+        }]}))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -80,9 +74,7 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching specified regular expressions', function() {
-        var keyFilter = new KeyFilter({ include: [/username/, /aws\.key/] })
-
-        wireUp(keyFilter)
+        wireUp(new KeyFilter({ include: [/username/, /aws\.key/] }))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -94,9 +86,7 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching specified strings', function() {
-        var keyFilter = new KeyFilter({ include: ['username', 'aws.key'] })
-
-        wireUp(keyFilter)
+        wireUp(new KeyFilter({ include: ['username', 'aws.key'] }))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -108,11 +98,9 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching function', function() {
-        var keyFilter = new KeyFilter({ include: [function(key) {
+        wireUp(new KeyFilter({ include: [function(key) {
             return (key === 'username' || key === 'aws.key')
-        }] })
-
-        wireUp(keyFilter)
+        }]}))
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
