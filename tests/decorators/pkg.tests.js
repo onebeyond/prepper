@@ -1,10 +1,11 @@
+var assert = require('chai').assert
+var semver = require('semver')
 var Logger = require('../..').Logger
 var Repo = require('../..').Repo
-var assert = require('chai').assert
 var Pkg = require('../../').decorators.Pkg
 var json = require('../../package.json')
 
-describe('Pkg Decorator', function() {
+describe('Package Decorator', function() {
 
     var repo = new Repo()
     var decorator = new Pkg(json)
@@ -29,6 +30,6 @@ describe('Pkg Decorator', function() {
         assert.equal(events[0].level, 'debug')
         assert.equal(events[0].message, 'meh')
         assert.equal(events[0].package.name, 'ernie')
-        assert.equal(events[0].package.version, '0.1.0')
+        assert.ok(semver.valid(events[0].package.version))
     })
 })
