@@ -1,6 +1,6 @@
 {
   "name": "ernie",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "An event based logger with excellent test support",
   "main": "index.js",
   "directories": {
@@ -17,7 +17,7 @@
     "mocha": "^2.4.5"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha tests --recursive"
   },
   "author": "GuideSmiths",
   "license": "ISC"
