@@ -1,5 +1,6 @@
+var requireAll = require('require-all')
+
 module.exports = {
     Logger: require('./lib/Logger'),
-    Repo: require('./lib/Repo'),
-    decorators: require('./lib/decorators')
+    handlers: requireAll(__dirname + '/lib/handlers')
 }
