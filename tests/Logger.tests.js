@@ -369,4 +369,41 @@ describe('Logger', function() {
         child.log('meh')
         assert.equal(repo.count(), 1)
     })
+
+    it('should pause logger', function() {
+        logger.pause().debug('meh')
+        assert.equal(repo.count(), 0)
+    })
+
+    it('should propagate pause to child loggers created before pausing', function() {
+        var child = logger.child()
+        logger.pause()
+        child.debug('meh')
+
+        assert.equal(repo.count(), 0)
+    })
+
+    it('should propagate pause to child loggers created after pausing', function() {
+        logger.pause().child().debug('meh')
+        assert.equal(repo.count(), 0)
+    })
+
+    it('should resume logger', function() {
+        logger.pause().resume().debug('meh')
+        assert.equal(repo.count(), 1)
+    })
+
+    it('should propagate resume to child loggers created before pausing', function() {
+        var child = logger.child()
+        logger.pause().resume()
+        child.debug('meh')
+
+        assert.equal(repo.count(), 1)
+    })
+
+    it('should propagate resume to child loggers created after pausing', function() {
+        logger.resume().child().debug('meh')
+
+        assert.equal(repo.count(), 1)
+    })
 })
