@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "lodash.get": "^4.2.1",
+    "lodash.has": "^4.3.1",
     "mocha": "^2.4.5",
     "semver": "^5.1.0"
   },
