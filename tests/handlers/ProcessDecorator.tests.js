@@ -1,11 +1,10 @@
 var assert = require('chai').assert
 var lib = require('../..')
-var semver = require('semver')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var Proc = lib.handlers.Proc
+var Proc = lib.handlers.ProcessDecorator
 
-describe('Proc Decorator', function() {
+describe('Process Decorator', function() {
 
     var repo = new Repo()
     var proc = new Proc()

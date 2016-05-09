@@ -286,6 +286,11 @@ describe('Logger', function() {
         assert.equal(repo.findBy('level', 'trace').length, 1)
     })
 
+    it('should merge error and context', function() {
+        logger.log(new Error('Oh Noes'), { error: { code: 123 }})
+        assert.equal(repo.first().error.code, 123)
+    })
+
     it('should support custom max listeners', function() {
         var logger = new Logger({ maxListeners: 200 })
         for (var i = 0; i < 200; i++) logger.on('message', function() {})

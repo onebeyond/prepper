@@ -4,11 +4,11 @@ var has = require('lodash.has')
 var lib = require('../..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var Env = lib.handlers.Env
+var Env = lib.handlers.EnvDecorator
 var Flatten = lib.handlers.Flatten
 var Unflatten = lib.handlers.Unflatten
 
-describe('Env', function() {
+describe('Env Decorator', function() {
 
     var repo = new Repo()
     var logger = new Logger()
@@ -22,16 +22,8 @@ describe('Env', function() {
         unflatten.removeAllListeners()
     })
 
-    function wireUp(env) {
-        logger.on('message', flatten.handle)
-        flatten.on('message', env.handle)
-        env.on('message', unflatten.handle)
-        unflatten.on('message', repo.handle)
-    }
-
     it('should exclude keys matching specified regular expressions', function() {
-        wireUp(new Env({ exclude: [/path/i, /user/i] }))
-
+        logger.connect(flatten, new Env({ exclude: [/path/i, /user/i] }), unflatten, repo)
         logger.debug({})
 
         var event = repo.first()
@@ -41,8 +33,7 @@ describe('Env', function() {
     })
 
     it('should exclude keys matching specified strings', function() {
-        wireUp(new Env({ exclude: ['PATH', 'USER'] }))
-
+        logger.connect(flatten, new Env({ exclude: ['PATH', 'USER'] }), unflatten, repo)
         logger.debug({})
 
         var event = repo.first()
@@ -52,9 +43,9 @@ describe('Env', function() {
     })
 
     it('should exclude keys matching function', function() {
-        wireUp(new Env({ exclude: [function(key) {
+        logger.connect(flatten, new Env({ exclude: [function(key) {
             return (key === 'PATH' || key === 'USER')
-        }]}))
+        }]}), unflatten, repo)
 
         logger.debug({})
 
@@ -71,8 +62,7 @@ describe('Env', function() {
     })
 
     it('should include keys matching specified regular expressions', function() {
-        wireUp(new Env({ include: [/NODE_ENV/] }))
-
+        logger.connect(flatten, new Env({ include: [/NODE_ENV/] }), unflatten, repo)
         logger.debug({})
 
         var event = repo.first()
@@ -82,8 +72,7 @@ describe('Env', function() {
     })
 
     it('should include keys matching specified strings', function() {
-        wireUp(new Env({ include: ['NODE_ENV'] }))
-
+        logger.connect(flatten, new Env({ include: ['NODE_ENV'] }), unflatten, repo)
         logger.debug({})
 
         var event = repo.first()
@@ -93,9 +82,9 @@ describe('Env', function() {
     })
 
     it('should include keys matching function', function() {
-        wireUp(new Env({ include: [function(key) {
+        logger.connect(flatten, new Env({ include: [function(key) {
             return (key === 'NODE_ENV')
-        }]}))
+        }]}), unflatten, repo)
 
         logger.debug({})
 

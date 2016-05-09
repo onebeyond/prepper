@@ -1,14 +1,13 @@
 var assert = require('chai').assert
 var lib = require('../..')
-var semver = require('semver')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var System = lib.handlers.System
+var SystemDecorator = lib.handlers.SystemDecorator
 
 describe('System Decorator', function() {
 
     var repo = new Repo()
-    var system = new System()
+    var system = new SystemDecorator()
     var logger = new Logger()
 
     beforeEach(function() {
