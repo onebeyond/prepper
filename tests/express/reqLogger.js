@@ -8,17 +8,6 @@ module.exports = function(req, res) {
     var sequence = new handlers.Sequence([
         new handlers.Tracer(),
         new handlers.Merge(R.pick(['url', 'headers', 'params'], req), { key: 'request' }),
-        new handlers.Flatten(),
-        new handlers.KeyFilter({ include: [
-            'error',
-            'message',
-            'level',
-            'tracer',
-            'request.url',
-            'request.headers',
-            'response.statusCode',
-        ]}),
-        new handlers.Unflatten()
     ])
     logger.on('message', sequence.handle)
     sequence.on('message', req.app.locals.logger.log)
