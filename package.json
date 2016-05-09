@@ -1,6 +1,6 @@
 {
   "name": "prepper",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice",
   "main": "index.js",
   "directories": {
@@ -28,5 +28,20 @@
     "test": "NODE_ENV=test mocha --recursive tests"
   },
   "author": "GuideSmiths",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guidesmiths/prepper.git"
+  },
+  "keywords": [
+    "Logger",
+    "Event",
+    "Emitter",
+    "Decorator",
+    "Filter"
+  ],
+  "bugs": {
+    "url": "https://github.com/guidesmiths/prepper/issues"
+  },
+  "homepage": "https://github.com/guidesmiths/prepper#readme"
 }
