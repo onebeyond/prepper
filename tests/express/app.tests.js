@@ -29,9 +29,9 @@ describe('Example Express Application', function() {
             assert.equal(debugEvents[0].request.url, '/hello-world')
 
             var infoEvents = repo.findBy('level', 'info')
-            assert.equal(infoEvents.length, 1)
-            assert.equal(infoEvents[0].request.url, '/hello-world')
-            assert.equal(infoEvents[0].response.statusCode, 200)
+            assert.equal(infoEvents.length, 2)
+            assert.equal(infoEvents[1].request.url, '/hello-world')
+            assert.equal(infoEvents[1].response.statusCode, 200)
             done()
         })
     })

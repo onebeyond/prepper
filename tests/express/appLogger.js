@@ -13,6 +13,7 @@ module.exports = function(app, appender) {
         new handlers.Merge(pkg, { key: 'package'}),
         new handlers.Flatten(),
         new handlers.KeyFilter({ include: [
+            'server',
             'timestamp',
             'tracer',
             'message',
