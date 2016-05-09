@@ -2,6 +2,8 @@ var assert = require('chai').assert
 var lib = require('..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
+var EventEmitter = require('events').EventEmitter
+var util = require('util')
 
 describe('Logger', function() {
 
@@ -294,6 +296,27 @@ describe('Logger', function() {
     it('should support custom max listeners', function() {
         var logger = new Logger({ maxListeners: 200 })
         for (var i = 0; i < 200; i++) logger.on('message', function() {})
+    })
+
+    it('should support custom log levels', function() {
+        function MyLogger() {
+            var self = this
+            this.catastrophe = function(event) {
+                var args = Array.prototype.slice.apply(arguments)
+                self._logEvent.apply(self, args.concat('catastrophe'))
+                return self
+            }
+            Logger.call(this);
+        }
+        util.inherits(MyLogger, Logger)
+
+        var logger = new MyLogger()
+        var repo = new Repo()
+        logger.on('message', repo.handle)
+
+        logger.catastrophe('meh')
+
+        assert.equal(repo.first().level, 'catastrophe')
     })
 
 })
