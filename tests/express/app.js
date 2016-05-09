@@ -28,7 +28,7 @@ module.exports = {
         appLogger(app, appender)
 
         server = app.listen(3000, function() {
-            app.locals.logger.info('Server started', { server: { port: 3000 } })
+            app.locals.logger.info('Server started', { server: server.address() })
             cb && cb()
         })
     },
