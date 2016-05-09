@@ -1,6 +1,12 @@
 # Prepper
 Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice.
 
+## Caveats
+Prepper is **Experimental** and not yet recommended for production use because...
+
+1. The merge library we're doesn't check cyclic dependencies and can lead to max call depth exceptions exceeded. We're looking for a better alternative
+2. Performance probably isn't that great since we're trying hard not to mutate the state of any input parameters
+
 ## tl;dr
 ```js
 var prepper = require('prepper')
@@ -45,10 +51,6 @@ will cause ElasticSearch to throw and error and the message to be dropped. When 
 As second problem we encountered is that developers were careless with what they logged. We've had binary messages, web pages, emails and some very large json documents transmitted to our logging infrastructure, degrading performance, incurring cost and most significantly risking information leak (thankfully none of the content was or a financial or personal nature).
 
 We felt it infeasible for multiple development teams working on different sets of microservices to keep track of a common logging schema without tooling, and experience has taught us that education isn't sufficient to prevent these problems happening again, so we built a logger that supports a centrally managed, easy to update schema. We could have done this with a static ElasticSearch schema or with logstash groks, but thought this would have been harder to maintain and update. It's also preferable to filter documents prior to transmission.
-
-## Caveats
-1. The merge library we're doesn't check cyclic dependencies and can lead to max call depth exceptions exceeded. We're looking for a better alternative
-2. Performance probably isn't that great since we're trying hard not to mutate the state of any input parameters
 
 ## What other features does Prepper have?
 
