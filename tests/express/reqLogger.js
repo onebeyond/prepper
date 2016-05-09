@@ -6,7 +6,7 @@ var onHeaders = require('on-headers')
 module.exports = function(req, res) {
     var logger = new Logger()
     var sequence = new handlers.Sequence([
-        new handlers.TracerDecorator(),
+        new handlers.Tracer(),
         new handlers.Merge(R.pick(['url', 'headers', 'params'], req), { key: 'request' }),
         new handlers.Flatten(),
         new handlers.KeyFilter({ include: [

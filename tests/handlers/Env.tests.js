@@ -5,7 +5,7 @@ var lib = require('../..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
 var Sequence = lib.handlers.Sequence
-var Env = lib.handlers.EnvDecorator
+var Env = lib.handlers.Env
 var Flatten = lib.handlers.Flatten
 var Unflatten = lib.handlers.Unflatten
 

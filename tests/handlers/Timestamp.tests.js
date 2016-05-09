@@ -2,7 +2,7 @@ var assert = require('chai').assert
 var lib = require('../..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var Timestamp = lib.handlers.TimestampDecorator
+var Timestamp = lib.handlers.Timestamp
 
 describe('Timestamp Decorator', function() {
 

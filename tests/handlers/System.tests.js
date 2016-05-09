@@ -2,12 +2,12 @@ var assert = require('chai').assert
 var lib = require('../..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var SystemDecorator = lib.handlers.SystemDecorator
+var System = lib.handlers.System
 
 describe('System Decorator', function() {
 
     var repo = new Repo()
-    var system = new SystemDecorator()
+    var system = new System()
     var logger = new Logger()
 
     beforeEach(function() {

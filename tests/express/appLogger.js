@@ -6,10 +6,10 @@ var pkg = require('../../package.json')
 module.exports = function(app, appender) {
     var logger = new Logger()
     var sequence = new handlers.Sequence([
-        new handlers.EnvDecorator(),
-        new handlers.SystemDecorator(),
-        new handlers.ProcessDecorator(),
-        new handlers.TimestampDecorator(),
+        new handlers.Env(),
+        new handlers.System(),
+        new handlers.Process(),
+        new handlers.Timestamp(),
         new handlers.Merge(pkg, { key: 'package'}),
         new handlers.Flatten(),
         new handlers.KeyFilter({ include: [
