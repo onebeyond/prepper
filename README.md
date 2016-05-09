@@ -46,7 +46,7 @@ Defines the schema and any subsequent log statments along the lines of
 ```js
 log.debug('Bad request', { user: { id: 'cressie176' }})
 ```
-will cause ElasticSearch to throw and error and the message to be dropped. When ElasticSearch throws an error it slows down. A noisy service, logging messages in high volumes can cause a delay in logs.
+will cause ElasticSearch to throw an error and the message to be dropped. When ElasticSearch throws an error it slows down. A noisy service, logging messages in high volumes can cause a delay in logs.
 
 As second problem we encountered is that developers were careless with what they logged. We've had binary messages, web pages, emails and some very large json documents transmitted to our logging infrastructure, degrading performance, incurring cost and most significantly risking information leak (thankfully none of the content was or a financial or personal nature).
 
