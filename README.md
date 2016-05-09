@@ -32,7 +32,6 @@ DEBUG sophrosyne 8285 prepper Server started
 We didn't. Prepper is a sequence of event handlers/emitters hidden behind an api that makes it look like a logger. The emitters decorate or filter attributes of the log event as it bubbles to the finally handler, which should invoke the logging framework of your choice.
 
 ## Why did you write an event emitter that looks like a logger, but doesn't log anything?
-```
 We ran into problems with our [ELK stack](https://www.elastic.co/webinars/introduction-elk-stack). With the default configuration ElasticSearch dynamically creates a schema the first time it encounters a property. This means the first service to execute
 ```js
 log.debug('Bad request', { user: 'cressie176' })
