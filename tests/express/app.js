@@ -16,14 +16,13 @@ module.exports = {
           res.send('Hello World!')
         })
 
-        app.get('/oh-noes', function (req, res) {
-          res.locals.logger.error(new Error('Oh Noes'))
-          res.status(500).send('On Noes!')
+        app.get('/oh-noes', function (req, res, next) {
+          next(new Error('Oh Noes'))
         })
 
         app.use(function(err, req, res, next) {
-            console.error(err, err.stack)
-            next()
+            res.locals.logger.error(new Error('Oh Noes'))
+            res.status(500).send(err.message)
         })
 
         appLogger(app, appender)
