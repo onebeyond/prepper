@@ -1,4 +1,5 @@
-# Decorators
+#
+Take back control of your logging
 
 ## Why write another logger
 1. The two most popular loggers (winston and bunyan) aren't event based

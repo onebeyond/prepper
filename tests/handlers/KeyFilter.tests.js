@@ -23,13 +23,8 @@ describe('Key Filter', function() {
         unflatten.removeAllListeners()
     })
 
-    function connect(keyFilter) {
-        logger.connect(flatten, keyFilter, unflatten, repo)
-    }
-
     it('should exclude keys matching specified regular expressions', function() {
-        connect(new KeyFilter({ exclude: [/password/i, /secret/i] }))
-
+        logger.on('message', new Sequence([flatten, new KeyFilter({ exclude: [/password/i, /secret/i] }), unflatten, repo]).handle)
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
@@ -40,8 +35,7 @@ describe('Key Filter', function() {
     })
 
     it('should exclude keys matching specified strings', function() {
-        connect(new KeyFilter({ exclude: ['password', 'secret'] }))
-
+        logger.on('message', new Sequence([flatten, new KeyFilter({ exclude: ['password', 'secret'] }), unflatten, repo]).handle)
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
@@ -52,9 +46,9 @@ describe('Key Filter', function() {
     })
 
     it('should exclude keys matching function', function() {
-        connect(new KeyFilter({ exclude: [function(key) {
+        logger.on('message', new Sequence([flatten, new KeyFilter({ exclude: [function(key) {
             return (key === 'password' || key === 'secret')
-        }]}))
+        }]}), unflatten, repo]).handle)
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
@@ -72,8 +66,7 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching specified regular expressions', function() {
-        connect(new KeyFilter({ include: [/username/, /aws\.key/] }))
-
+        logger.on('message', new Sequence([flatten, new KeyFilter({ include: [/username/, /aws\.key/] }), unflatten, repo]).handle)
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
@@ -84,8 +77,7 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching specified strings', function() {
-        connect(new KeyFilter({ include: ['username', 'aws.key'] }))
-
+        logger.on('message', new Sequence([flatten, new KeyFilter({ include: ['username', 'aws.key'] }), unflatten, repo]).handle)
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
@@ -96,9 +88,9 @@ describe('Key Filter', function() {
     })
 
     it('should include keys matching function', function() {
-        connect(new KeyFilter({ include: [function(key) {
+        logger.on('message', new Sequence([flatten, new KeyFilter({ include: [function(key) {
             return (key === 'username' || key === 'aws.key')
-        }]}))
+        }]}), unflatten, repo]).handle)
 
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 

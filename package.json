@@ -12,18 +12,22 @@
     "lodash.clonedeep": "^4.3.2",
     "lodash.set": "^4.1.0",
     "merge": "^1.2.0",
+    "node-uuid": "^1.4.7",
     "ramda": "^0.21.0",
     "require-all": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "express": "^4.13.4",
     "lodash.get": "^4.2.1",
     "lodash.has": "^4.3.1",
     "mocha": "^2.4.5",
+    "on-headers": "^1.0.1",
+    "request": "^2.72.0",
     "semver": "^5.1.0"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha tests --recursive"
+    "test": "NODE_ENV=test mocha --recursive tests"
   },
   "author": "GuideSmiths",
   "license": "ISC"
