@@ -1,7 +1,7 @@
 {
-  "name": "ernie",
+  "name": "prepper",
   "version": "0.1.0",
-  "description": "An event based logger with excellent test support",
+  "description": "Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice",
   "main": "index.js",
   "directories": {
     "test": "tests"
@@ -23,8 +23,7 @@
     "lodash.has": "^4.3.1",
     "mocha": "^2.4.5",
     "on-headers": "^1.0.1",
-    "request": "^2.72.0",
-    "semver": "^5.1.0"
+    "request": "^2.72.0"
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive tests"

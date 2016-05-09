@@ -2,12 +2,12 @@ var assert = require('chai').assert
 var lib = require('../..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var Proc = lib.handlers.Process
+var Process = lib.handlers.Process
 
 describe('Process Decorator', function() {
 
     var repo = new Repo()
-    var proc = new Proc()
+    var proc = new Process()
     var logger = new Logger()
 
     beforeEach(function() {
