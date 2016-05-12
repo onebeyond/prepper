@@ -5,7 +5,7 @@ var pkg = require('../../package.json')
 
 module.exports = function(app, appender) {
     var logger = new Logger()
-    var sequence = new handlers.Sequence([
+    var sequence = logger.connect(
         new handlers.Env(),
         new handlers.System(),
         new handlers.Process(),
@@ -36,8 +36,7 @@ module.exports = function(app, appender) {
             'devDependencies',
         ]}),
         new handlers.Unflatten()
-    ])
-    logger.on('message', sequence.handle)
+    )
 
     sequence.on('message', appender)
     app.locals.logger = logger

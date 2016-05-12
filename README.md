@@ -100,6 +100,9 @@ util.inherits(MyLogger, Logger)
 
 module.exports = MyLogger
 ```
+### Request scoped loggers
+Because loggers are event emitters too you can wire them together. By defining an application scoped logger, referenced by ```app.locals.logger``` and a request scoped logger referenced by response.locals.logger, and connecting them together you can automatically decorate log events with request details. See the express tests for an example.
+
 ### A few helpful handlers
 
 #### Merge
@@ -108,7 +111,6 @@ Merges the given object into the event. You can optionally supply a key and whet
 // Merges package json into the event under the package sub-document, overwriting existing properties
 new prepper.handlers.Merge(packageJson, { key: 'package', invert: true })
 ```
-
 #### Env
 Decorates the event with all key value pairs from ```process.env``` under the ```env``` sub-document
 ```js
@@ -182,8 +184,10 @@ new prepper.handlers.Sequence([
     new prepper.handlers.Unflatten()
 ])
 ```
-### Request scoped loggers
-Because loggers are event emitters too you can wire them together. By defining an application scoped logger, referenced by ```app.locals.logger``` and a request scoped logger referenced by response.locals.logger, and connecting them together you can automatically decorate log events with request details. See the express tests for an example.
+#### Oversized
+Decorates the event with an ```prepper.violation.oversized``` property if the stringified version of the event is larger than the given size. Circular references are ignored, as are toJSON and property getters which throw exceptions.
+```js
+new prepper.handlers.Oversized({ size: 20000 })
 
 ### Thoughtful error treatment
 Sometimes you need to yield and error, but don't want it logged as one. If you decorate the error object with a ```level``` attribute set to the desired level and log the error with ```logger.log(err)``` instead of ```logger.error(err)```, prepper will use the specified level rather than the default of error. Any other attributes (e.g. ```code```) added to an error will be included in the event too.
