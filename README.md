@@ -111,12 +111,12 @@ Decorates the event with all key value pairs from ```process.env``` under the ``
 new prepper.handlers.Env()
 ```
 #### Process
-Decorates the event with various process properties (title, version, pid, memory usage, etc) under the ```process` sub-document
+Decorates the event with various process properties (title, version, pid, memory usage, etc) under the ```process``` sub-document
 ```js
 new prepper.handlers.Process()
 ```
 #### System
-Decorates the event with various os properties (hostname, load average, memory usage, platform, release, etc) under the ```system` sub-document
+Decorates the event with various os properties (hostname, load average, memory usage, platform, release, etc) under the ```system``` sub-document
 ```js
 new prepper.handlers.System()
 ```
