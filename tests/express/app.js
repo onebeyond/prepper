@@ -6,17 +6,17 @@ var server
 
 module.exports = {
     start: function(appender, cb) {
-        app.use(function(req, res, next) {
-            reqLogger(req, res)
-            next()
-        })
 
-        app.get('/hello-world', function (req, res) {
+        app.get('/hello-world', logRequest, function (req, res) {
           res.locals.logger.debug('Hello World')
           res.send('Hello World!')
         })
 
-        app.get('/oh-noes', function (req, res, next) {
+        app.get('/hello-world-no-logging', function (req, res) {
+          res.send('Hello World!')
+        })
+
+        app.get('/oh-noes', logRequest, function (req, res, next) {
           next(new Error('Oh Noes'))
         })
 
@@ -24,6 +24,11 @@ module.exports = {
             res.locals.logger.error(new Error('Oh Noes'))
             res.status(500).send(err.message)
         })
+
+        function logRequest(req, res, next) {
+            reqLogger(req, res)
+            next()
+        }
 
         appLogger(app, appender)
 

@@ -2,6 +2,7 @@ var request = require('request')
 var app = require('./app')
 var Repo = require('../..').handlers.Repo
 var assert = require('chai').assert
+var async = require('async')
 
 describe('Example Express Application', function() {
 
@@ -51,5 +52,36 @@ describe('Example Express Application', function() {
             assert.equal(errorEvents[1].response.statusCode, 500)
             done()
         })
+    })
+
+    it('should not be much slower', function(done) {
+
+        this.timeout(10000)
+
+        async.parallel({
+            duration1: function(cb) {
+                var before = Date.now()
+                async.times(100, get.bind(null, 'http://localhost:3000/hello-world'), function(err) {
+                    cb(err, Date.now() - before)
+                })
+            },
+            duration2: function(cb) {
+                var before = Date.now()
+                async.times(100, get.bind(null, 'http://localhost:3000/hello-world-no-logging'), function(err) {
+                    cb(err, Date.now() - before)
+                })
+            }
+        }, function(err, results) {
+            assert.ok(((results.duration2 - results.duration1) / results.duration1 * 100) < 10)
+            done()
+        })
+
+        function get(url, n, cb) {
+            request.get(url, function(err, res, body) {
+                if (err) return done(err)
+                if (res.statusCode !== 200) return done(new Error('Status: ' + res.statusCode))
+                cb()
+            })
+        }
     })
 })

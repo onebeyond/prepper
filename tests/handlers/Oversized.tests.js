@@ -4,7 +4,7 @@ var Logger = lib.Logger
 var Repo = lib.handlers.Repo
 var Oversized = lib.handlers.Oversized
 
-describe.only('Oversized Decorator', function() {
+describe('Oversized Decorator', function() {
 
     var repo = new Repo()
     var logger = new Logger()

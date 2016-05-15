@@ -1,12 +1,6 @@
 # Prepper
 Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice.
 
-## Caveats
-Prepper is **Experimental** and not yet recommended for production use because...
-
-1. The merge library we're doesn't check cyclic dependencies and can lead to max call depth exceptions exceeded. We're looking for a better alternative
-2. Performance probably isn't that great since we're trying hard not to mutate the state of any input parameters
-
 ## tl;dr
 ```js
 var prepper = require('prepper')
