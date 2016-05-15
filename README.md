@@ -97,6 +97,9 @@ module.exports = MyLogger
 ### Request scoped loggers
 Because loggers are event emitters too you can wire them together. By defining an application scoped logger, referenced by ```app.locals.logger``` and a request scoped logger referenced by response.locals.logger, and connecting them together you can automatically decorate log events with request details. See the express tests for an example.
 
+### Thoughtful error treatment
+Sometimes you need to yield and error, but don't want it logged as one. If you decorate the error object with a ```level``` attribute set to the desired level and log the error with ```logger.log(err)``` instead of ```logger.error(err)```, prepper will use the specified level rather than the default of error. Any other attributes (e.g. ```code```) added to an error will be included in the event too.
+
 ### A few helpful handlers
 
 #### Merge
@@ -183,9 +186,6 @@ Decorates the event with an ```prepper.violation.oversized``` property if the st
 ```js
 new prepper.handlers.Oversized({ size: 20000 })
 ```
-
-### Thoughtful error treatment
-Sometimes you need to yield and error, but don't want it logged as one. If you decorate the error object with a ```level``` attribute set to the desired level and log the error with ```logger.log(err)``` instead of ```logger.error(err)```, prepper will use the specified level rather than the default of error. Any other attributes (e.g. ```code```) added to an error will be included in the event too.
 
 
 
