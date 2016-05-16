@@ -6,6 +6,8 @@ var Oversized = lib.handlers.Oversized
 
 describe('Oversized Decorator', function() {
 
+    this.slow(2000)
+
     var repo = new Repo()
     var logger = new Logger()
 

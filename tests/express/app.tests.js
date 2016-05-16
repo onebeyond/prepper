@@ -6,6 +6,8 @@ var async = require('async')
 
 describe('Example Express Application', function() {
 
+    this.slow(2000)
+
     var repo = new Repo()
 
     before(function(cb) {
@@ -47,40 +49,35 @@ describe('Example Express Application', function() {
             assert.equal(errorEvents[0].request.url, '/oh-noes')
             assert.equal(errorEvents[0].error.message, 'Oh Noes')
 
-
             assert.equal(errorEvents[1].request.url, '/oh-noes')
             assert.equal(errorEvents[1].response.statusCode, 500)
             done()
         })
     })
 
-    it('should not be much slower', function(done) {
+    it('should not be more than 0.1% slower', function(done) {
 
-        this.timeout(10000)
+        this.timeout(20000)
+        this.slow(10000)
 
         async.parallel({
-            duration1: function(cb) {
-                var before = Date.now()
-                async.times(100, get.bind(null, 'http://localhost:3000/hello-world'), function(err) {
-                    cb(err, Date.now() - before)
-                })
-            },
-            duration2: function(cb) {
-                var before = Date.now()
-                async.times(100, get.bind(null, 'http://localhost:3000/hello-world-no-logging'), function(err) {
-                    cb(err, Date.now() - before)
-                })
-            }
+            withLogging: benchmark.bind(null, 'http://localhost:3000/hello-world'),
+            withoutLogging: benchmark.bind(null, 'http://localhost:3000/hello-world-no-logging')
         }, function(err, results) {
-            assert.ok(((results.duration2 - results.duration1) / results.duration1 * 100) < 10)
+            assert.ok(((results.withLogging - results.withoutLogging) / results.withoutLogging) <= 0.1)
             done()
         })
 
-        function get(url, n, cb) {
-            request.get(url, function(err, res, body) {
-                if (err) return done(err)
-                if (res.statusCode !== 200) return done(new Error('Status: ' + res.statusCode))
-                cb()
+        function benchmark(url, cb) {
+            var before = Date.now()
+            async.timesLimit(1000, 5, function(n, cb) {
+                request.get(url, function(err, res, body) {
+                    if (err) return done(err)
+                    if (res.statusCode !== 200) return done(new Error('Status: ' + res.statusCode))
+                    cb()
+                })
+            }, function(err) {
+                cb(err, Date.now() - before)
             })
         }
     })
