@@ -1,6 +1,8 @@
 # Prepper
 Prepper is an event based api for filtering, decorating and validating log events before routing them to your logging framework of choice. It's especially useful in a micro-service environment where consistent and responsible logging becomes harder to ensure.
 
+[![Build Status](https://travis-ci.org/guidesmiths/prepper.png)](https://travis-ci.org/guidesmiths/prepper)
+
 ## tl;dr
 ```js
 var prepper = require('prepper')
