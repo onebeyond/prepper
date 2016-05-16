@@ -8,6 +8,9 @@
   },
   "dependencies": {
     "flat": "^2.0.0",
+    "lodash.isfunction": "^3.0.8",
+    "lodash.isobject": "^3.0.2",
+    "lodash.isstring": "^4.0.1",
     "lodash.merge": "^4.4.0",
     "lodash.set": "^4.1.0",
     "node-uuid": "^1.4.7",

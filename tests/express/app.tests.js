@@ -55,7 +55,7 @@ describe('Example Express Application', function() {
         })
     })
 
-    it('should not be more than 0.1% slower', function(done) {
+    it('should not be more than 0.1% slower', process.env.SKIP_PERF_TEST ? undefined : function(done) {
 
         this.timeout(20000)
         this.slow(10000)
