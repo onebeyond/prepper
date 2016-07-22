@@ -61,7 +61,7 @@ describe('Key Filter', function() {
 
     it('should report excludes that are not Strings, Regular Expressions or Functions', function() {
         assert.throws(function() {
-          new KeyFilter({ exclude: [1] })
+          return new KeyFilter({ exclude: [1] })
         }, /Predicates must be a string, regular expression or function/)
     })
 
@@ -103,7 +103,7 @@ describe('Key Filter', function() {
 
     it('should report includes that are not Strings, Regular Expressions or Functions', function() {
         assert.throws(function() {
-          new KeyFilter({ include: [1] })
+          return new KeyFilter({ include: [1] })
         }, /Predicates must be a string, regular expression or function/)
     })
 })

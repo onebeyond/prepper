@@ -21,14 +21,18 @@
     "async": "^2.0.0-rc.4",
     "chai": "^3.5.0",
     "express": "^4.13.4",
+    "husky": "^0.11.5",
     "lodash.get": "^4.2.1",
     "lodash.has": "^4.3.1",
     "mocha": "^2.4.5",
     "on-headers": "^1.0.1",
+    "eslint": "^0.23.0",
+    "eslint-config-imperative": "0.0.6",
     "request": "^2.72.0"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha --recursive tests"
+    "test": "NODE_ENV=test mocha --recursive tests",
+    "lint": "eslint ."
   },
   "author": "GuideSmiths",
   "license": "ISC",

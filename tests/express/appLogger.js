@@ -1,4 +1,3 @@
-var R = require('ramda')
 var Logger = require('../../').Logger
 var handlers = require('../../').handlers
 var pkg = require('../../package.json')
@@ -33,7 +32,7 @@ module.exports = function(app, appender) {
             'secret',
             'token',
             'dependencies',
-            'devDependencies',
+            'devDependencies'
         ]}),
         new handlers.Unflatten()
     )

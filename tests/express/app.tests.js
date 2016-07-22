@@ -64,6 +64,7 @@ describe('Example Express Application', function() {
             withLogging: benchmark.bind(null, 'http://localhost:3000/hello-world'),
             withoutLogging: benchmark.bind(null, 'http://localhost:3000/hello-world-no-logging')
         }, function(err, results) {
+            assert.ifError(err)
             assert.ok(((results.withLogging - results.withoutLogging) / results.withoutLogging) <= 0.1)
             done()
         })

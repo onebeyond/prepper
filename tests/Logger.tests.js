@@ -2,7 +2,6 @@ var assert = require('chai').assert
 var lib = require('..')
 var Logger = lib.Logger
 var Repo = lib.handlers.Repo
-var EventEmitter = require('events').EventEmitter
 var util = require('util')
 
 describe('Logger', function() {
