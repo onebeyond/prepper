@@ -131,9 +131,9 @@ Decorates the event with a timestamp
 new prepper.handlers.Timestamp()
 ```
 ### Tracer
-Decorates the event with a uuid or tracer. Especially useful for web applications when the logger is scoped to the request
+Decorates the event with a new uuid or existing tracer if specified. Especially useful for web applications when the logger is scoped to the request
 ```js
-new prepper.handlers.Tracer()
+new prepper.handlers.Tracer({ tracer: req.headers.tracer })
 ```
 ### KeyFilter
 Includes or excludes properties based on keyname. Useful for removing password fields and limiting output to a fixed schema

@@ -4,7 +4,7 @@ var Logger = lib.Logger
 var Repo = lib.handlers.Repo
 var Env = lib.handlers.Env
 
-describe('Process Decorator', function() {
+describe('Env Decorator', function() {
 
     var repo = new Repo()
     var env = new Env()
