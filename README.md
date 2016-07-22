@@ -1,8 +1,8 @@
 # Prepper
-Prepper is an event based api for filtering, decorating and validating log events before routing them to your logging framework of choice. It's especially useful in a micro-service environment where it is otherwise hard to ensure consistent and responsible logging practice.
-
 [![Build Status](https://img.shields.io/travis/guidesmiths/prepper/master.svg)](https://travis-ci.org/guidesmiths/prepper)
 [![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
+
+Prepper is an event based api for filtering, decorating and validating log events before routing them to your logging framework of choice. It's especially useful in a micro-service environment where it is otherwise hard to ensure consistent and responsible logging practice.
 
 ## tl;dr
 ```js
