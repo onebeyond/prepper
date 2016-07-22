@@ -32,7 +32,8 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive tests",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepush": "npm run lint && npm test"
   },
   "author": "GuideSmiths",
   "license": "ISC",
