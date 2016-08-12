@@ -2,9 +2,8 @@ var Logger = require('../../').Logger
 var handlers = require('../../').handlers
 var pkg = require('../../package.json')
 
-module.exports = function(app, appender) {
-    var logger = new Logger()
-    var sequence = logger.connect(
+module.exports = function() {
+    return new Logger({ handlers: [
         new handlers.Env(),
         new handlers.System(),
         new handlers.Process(),
@@ -35,8 +34,5 @@ module.exports = function(app, appender) {
             'devDependencies'
         ]}),
         new handlers.Unflatten()
-    )
-
-    sequence.on('message', appender)
-    app.locals.logger = logger
+    ]})
 }

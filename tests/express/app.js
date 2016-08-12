@@ -30,7 +30,7 @@ module.exports = {
             next()
         }
 
-        appLogger(app, appender)
+        app.locals.logger = appLogger().on('message', appender)
 
         server = app.listen(3000, function() {
             app.locals.logger.info('Server started', { server: server.address() })

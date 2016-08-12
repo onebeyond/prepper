@@ -5,14 +5,13 @@ Prepper is an event based api for filtering, decorating and validating log event
 
 ## tl;dr
 ```js
-var prepper = require('prepper')
-var logger = new prepper.Logger()
-var pkg = require('./package.json')
-var os = require('os')
-var Sequence = prepper.handlers.Sequence
-var Merge = prepper.handlers.Merge
+const prepper = require('prepper')
+const pkg = require('./package.json')
+const os = require('os')
+const Sequence = prepper.handlers.Sequence
+const Merge = prepper.handlers.Merge
 
-var sequence = new Sequence([
+const logger = new prepper.Logger([
     new Merge({ system: { hostname: os.hostname() } }),
     new Merge({ package: { name: pkg.name } }),
     new Merge({ process: { pid: process.pid } })
@@ -20,8 +19,6 @@ var sequence = new Sequence([
     // Replace with your logger of choice
     console.log(event.level.toUpperCase(), event.system.hostname, event.process.pid, event.package.name, event.message)
 })
-
-logger.on('message', sequence.handle)
 
 logger.debug('Server started')
 ```

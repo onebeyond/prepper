@@ -1,6 +1,7 @@
 var assert = require('chai').assert
 var lib = require('..')
 var Logger = lib.Logger
+var Merge = lib.handlers.Merge
 var Repo = lib.handlers.Repo
 var util = require('util')
 
@@ -293,7 +294,7 @@ describe('Logger', function() {
     })
 
     it('should support custom max listeners', function() {
-        var logger = new Logger({ maxListeners: 200 })
+        var logger = new Logger({ maxListeners: 201 })
         for (var i = 0; i < 200; i++) logger.on('message', function() {})
     })
 
@@ -316,6 +317,18 @@ describe('Logger', function() {
         logger.catastrophe('meh')
 
         assert.equal(repo.first().level, 'catastrophe')
+    })
+
+    it('should create child loggers', function() {
+        var parent = new Logger().on('message', function(event) {
+            assert.equal(event.child, 'child')
+            assert.equal(event.grandchild, 'grandchild')
+        })
+
+        var child = parent.child({ handlers: [ new Merge({ child: 'child' })] })
+        var grandchild = child.child({ handlers: [ new Merge({ grandchild: 'grandchild' })] })
+
+        grandchild.log('Foo')
     })
 
 })
