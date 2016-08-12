@@ -1,6 +1,6 @@
 {
   "name": "prepper",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice",
   "main": "index.js",
   "directories": {
