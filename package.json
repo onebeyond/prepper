@@ -18,7 +18,7 @@
     "async": "^2.5.0",
     "chai": "^4.1.0",
     "codeclimate-test-reporter": "^0.5.0",
-    "eslint": "^4.1.1",
+    "eslint": "^4.3.0",
     "eslint-config-imperative": "^2.0.1",
     "eslint-plugin-imperative": "^2.0.0",
     "express": "^4.15.3",
