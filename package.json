@@ -9,7 +9,7 @@
   "dependencies": {
     "flat": "^4.0.0",
     "lodash.merge": "^4.6.0",
-    "lodash.set": "^4.1.0",
+    "lodash.set": "^4.3.2",
     "ramda": "^0.24.1",
     "require-all": "^2.2.0",
     "uuid": "^3.1.0"
