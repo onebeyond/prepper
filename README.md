@@ -1,7 +1,14 @@
-[![Build Status](https://img.shields.io/travis/guidesmiths/prepper/master.svg)](https://travis-ci.org/guidesmiths/prepper)
-[![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
 # Prepper
 Prepper is an event based api for filtering, decorating and validating log events before routing them to your logging framework of choice. It's especially useful in a micro-service environment where it is otherwise hard to ensure consistent and responsible logging practice.
+
+[![NPM version](https://img.shields.io/npm/v/prepper.svg?style=flat-square)](https://www.npmjs.com/package/prepper)
+[![NPM downloads](https://img.shields.io/npm/dm/prepper.svg?style=flat-square)](https://www.npmjs.com/package/prepper)
+[![Build Status](https://img.shields.io/travis/guidesmiths/prepper/master.svg)](https://travis-ci.org/guidesmiths/prepper)
+[![Code Climate](https://codeclimate.com/github/guidesmiths/prepper/badges/gpa.svg)](https://codeclimate.com/github/guidesmiths/prepper)
+[![Test Coverage](https://codeclimate.com/github/guidesmiths/prepper/badges/coverage.svg)](https://codeclimate.com/github/guidesmiths/prepper/coverage)
+[![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
+[![Dependency Status](https://david-dm.org/guidesmiths/prepper.svg)](https://david-dm.org/guidesmiths/prepper)
+[![devDependencies Status](https://david-dm.org/guidesmiths/prepper/dev-status.svg)](https://david-dm.org/guidesmiths/prepper?type=dev)
 
 ## tl;dr
 ```js
