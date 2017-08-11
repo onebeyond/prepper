@@ -11,10 +11,17 @@ var Unflatten = lib.handlers.Unflatten
 
 describe('Key Filter', function() {
 
-    var repo = new Repo()
-    var logger = new Logger()
-    var flatten = new Flatten()
-    var unflatten = new Unflatten()
+    var repo
+    var logger
+    var flatten
+    var unflatten
+
+    beforeEach(function() {
+        repo = new Repo()
+        logger = new Logger()
+        flatten = new Flatten()
+        unflatten = new Unflatten()
+    })
 
     afterEach(function() {
         repo.removeAllListeners().clear()

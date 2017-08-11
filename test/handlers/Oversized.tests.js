@@ -8,8 +8,13 @@ describe('Oversized Decorator', function() {
 
     this.slow(2000)
 
-    var repo = new Repo()
-    var logger = new Logger()
+    var repo
+    var logger
+
+    beforeEach(function() {
+        repo = new Repo()
+        logger = new Logger()
+    })
 
     afterEach(function() {
         repo.clear()

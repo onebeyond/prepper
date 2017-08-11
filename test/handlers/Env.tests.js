@@ -6,11 +6,15 @@ var Env = lib.handlers.Env
 
 describe('Env Decorator', function() {
 
-    var repo = new Repo()
-    var env = new Env()
-    var logger = new Logger()
+    var repo
+    var env
+    var logger
 
     beforeEach(function() {
+        repo = new Repo()
+        env = new Env()
+        logger = new Logger()
+
         logger.on('message', env.handle)
         env.on('message', repo.handle)
     })

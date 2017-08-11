@@ -7,15 +7,17 @@ var util = require('util')
 
 describe('Logger', function() {
 
-    var repo = new Repo()
-    var logger = new Logger()
+    var repo
+    var logger
 
     beforeEach(function() {
+        logger = new Logger()
+        repo = new Repo()
         logger.on('message', repo.handle)
     })
 
     afterEach(function() {
-        repo.removeAllListeners().clear()
+        repo.removeAllListeners()
         logger.removeAllListeners()
     })
 
@@ -319,14 +321,16 @@ describe('Logger', function() {
         assert.equal(repo.first().level, 'catastrophe')
     })
 
-    it('should create child loggers', function() {
-        var parent = new Logger().on('message', function(event) {
+    it('should create descendent loggers', function() {
+        var parent = new Logger({ handlers: [ new Merge({ parent: 'parent' })] })
+        var child = parent.child({ handlers: [ new Merge({ child: 'child' })] })
+        var grandchild = child.child({ handlers: [ new Merge({ grandchild: 'grandchild' })] })
+
+        parent.on('message', function(event) {
+            assert.equal(event.parent, 'parent')
             assert.equal(event.child, 'child')
             assert.equal(event.grandchild, 'grandchild')
         })
-
-        var child = parent.child({ handlers: [ new Merge({ child: 'child' })] })
-        var grandchild = child.child({ handlers: [ new Merge({ grandchild: 'grandchild' })] })
 
         grandchild.log('Foo')
     })

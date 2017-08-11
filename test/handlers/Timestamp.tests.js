@@ -6,11 +6,15 @@ var Timestamp = lib.handlers.Timestamp
 
 describe('Timestamp Decorator', function() {
 
-    var repo = new Repo()
-    var timestamp = new Timestamp()
-    var logger = new Logger()
+    var repo
+    var timestamp
+    var logger
 
     beforeEach(function() {
+        repo = new Repo()
+        timestamp = new Timestamp()
+        logger = new Logger()
+
         logger.on('message', timestamp.handle)
         timestamp.on('message', repo.handle)
     })

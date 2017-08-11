@@ -6,11 +6,15 @@ var System = lib.handlers.System
 
 describe('System Decorator', function() {
 
-    var repo = new Repo()
-    var system = new System()
-    var logger = new Logger()
+    var repo
+    var system
+    var logger
 
     beforeEach(function() {
+        repo = new Repo()
+        system = new System()
+        logger = new Logger()
+
         logger.on('message', system.handle)
         system.on('message', repo.handle)
     })

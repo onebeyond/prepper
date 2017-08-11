@@ -6,11 +6,15 @@ var Process = lib.handlers.Process
 
 describe('Process Decorator', function() {
 
-    var repo = new Repo()
-    var proc = new Process()
-    var logger = new Logger()
+    var repo
+    var proc
+    var logger
 
     beforeEach(function() {
+        repo = new Repo()
+        proc = new Process()
+        logger = new Logger()
+
         logger.on('message', proc.handle)
         proc.on('message', repo.handle)
     })

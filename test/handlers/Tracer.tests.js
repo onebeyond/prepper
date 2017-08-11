@@ -6,11 +6,15 @@ var Tracer = lib.handlers.Tracer
 
 describe('Tracer', function() {
 
-    var repo = new Repo()
-    var tracer = new Tracer()
-    var logger = new Logger()
+    var repo
+    var tracer
+    var logger
 
     beforeEach(function() {
+        repo = new Repo()
+        tracer = new Tracer()
+        logger = new Logger()
+
         logger.on('message', tracer.handle)
         tracer.on('message', repo.handle)
     })
