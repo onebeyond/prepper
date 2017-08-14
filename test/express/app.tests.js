@@ -55,7 +55,7 @@ describe('Example Express Application', function() {
         })
     })
 
-    it('should not be more than 0.1% slower', process.env.SKIP_PERF_TEST ? undefined : function(done) {
+    it('should not be more than 1% slower', process.env.SKIP_PERF_TEST ? undefined : function(done) {
 
         this.timeout(20000)
         this.slow(10000)
@@ -65,7 +65,7 @@ describe('Example Express Application', function() {
             withoutLogging: benchmark.bind(null, 'http://localhost:3000/hello-world-no-logging')
         }, function(err, results) {
             assert.ifError(err)
-            assert.ok(((results.withLogging - results.withoutLogging) / results.withoutLogging) <= 0.1)
+            assert.ok(((results.withLogging - results.withoutLogging) / results.withoutLogging) <= 1)
             done()
         })
 
