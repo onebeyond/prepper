@@ -57,8 +57,8 @@ describe('Example Express Application', function() {
 
     it('should not be more than 1% slower', process.env.SKIP_PERF_TEST ? undefined : function(done) {
 
-        this.timeout(20000)
-        this.slow(10000)
+        this.timeout(200000)
+        this.slow(100000)
 
         async.parallel({
             withLogging: benchmark.bind(null, 'http://localhost:3000/hello-world'),
