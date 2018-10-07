@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.2.0]
+### Updated
+- Updated dependencies
+
 ## [1.1.0]
 ### Updated
 - Fixed bug causing some attributes to be lost from the event
