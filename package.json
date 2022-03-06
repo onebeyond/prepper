@@ -1,6 +1,6 @@
 {
   "name": "prepper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "flat": "^5.0.2",
-    "lodash.merge": "^4.6.1",
+    "lodash.merge": "^4.6.2",
     "lodash.set": "^4.3.2",
     "ramda": "^0.27.2",
     "require-all": "^3.0.0",
