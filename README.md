@@ -9,6 +9,8 @@ Prepper is an event based api for filtering, decorating and validating log event
 [![Code Style](https://img.shields.io/badge/code%20style-imperative-brightgreen.svg)](https://github.com/guidesmiths/eslint-config-imperative)
 [![Dependency Status](https://david-dm.org/guidesmiths/prepper.svg)](https://david-dm.org/guidesmiths/prepper)
 [![devDependencies Status](https://david-dm.org/guidesmiths/prepper/dev-status.svg)](https://david-dm.org/guidesmiths/prepper?type=dev)
+[![Maintainability](https://api.codeclimate.com/v1/badges/03d3439aa152219a9f36/maintainability)](https://codeclimate.com/github/onebeyond/prepper/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/03d3439aa152219a9f36/test_coverage)](https://codeclimate.com/github/onebeyond/prepper/test_coverage)
 
 ## tl;dr
 ```js
