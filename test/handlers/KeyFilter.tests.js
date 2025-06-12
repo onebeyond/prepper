@@ -1,6 +1,5 @@
 var assert = require('chai').assert
-var get = require('lodash.get')
-var has = require('lodash.has')
+var _ = require('lodash')
 var lib = require('../..')
 var Logger = lib.Logger
 var Sequence = lib.handlers.Sequence
@@ -35,10 +34,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should exclude keys matching specified strings', function() {
@@ -46,10 +45,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should exclude keys matching function', function() {
@@ -60,10 +59,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should report excludes that are not Strings, Regular Expressions or Functions', function() {
@@ -77,10 +76,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should include keys matching specified strings', function() {
@@ -88,10 +87,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should include keys matching function', function() {
@@ -102,10 +101,10 @@ describe('Key Filter', function() {
         logger.debug({ username: 'cressie176', password: 'bar', aws: { key: 123, secret: 'baz' } })
 
         var event = repo.first()
-        assert.equal(get(event, 'username'), 'cressie176')
-        assert.equal(get(event, 'aws.key'), 123)
-        assert.isFalse(has(event, 'password'))
-        assert.isFalse(has(event, 'secret'))
+        assert.equal(_.get(event, 'username'), 'cressie176')
+        assert.equal(_.get(event, 'aws.key'), 123)
+        assert.isFalse(_.has(event, 'password'))
+        assert.isFalse(_.has(event, 'secret'))
     })
 
     it('should report includes that are not Strings, Regular Expressions or Functions', function() {

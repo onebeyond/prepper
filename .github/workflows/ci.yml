@@ -5,13 +5,14 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [6.x, 8.x, 10.x, 14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x, 20.x, 22.x 24.x]
     steps:
     - uses: actions/checkout@v2
     - name: Set up Node.js version ${{ matrix.node-version }}
