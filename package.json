@@ -1,6 +1,6 @@
 {
   "name": "prepper",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Prepper is an event based api for pre-processing log events before routing them to your logging framework of choice",
   "main": "index.js",
   "directories": {
@@ -37,11 +37,11 @@
     "precommit": "npm run lint && npm test",
     "prepush": "npm run codeclimate"
   },
-  "author": "GuideSmiths",
+  "author": "One Beyond",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guidesmiths/prepper.git"
+    "url": "git+https://github.com/onebeyond/prepper.git"
   },
   "keywords": [
     "Logger",
@@ -51,7 +51,7 @@
     "Filter"
   ],
   "bugs": {
-    "url": "https://github.com/guidesmiths/prepper/issues"
+    "url": "https://github.com/onebeyond/prepper/issues"
   },
-  "homepage": "https://github.com/guidesmiths/prepper#readme"
+  "homepage": "https://github.com/onebeyond/prepper#readme"
 }
